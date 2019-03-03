@@ -1,0 +1,35 @@
+//
+// Protocol buffers definition for Hello World
+//
+syntax = "proto3";
+package example.grpc;
+
+message PlayRequest {
+  int32 row = 1;
+  int32 column = 2;
+  int32 player = 3;
+}
+
+message PlayResponse {
+  bool accepted = 1;
+}
+
+message CheckWinnerRequest {
+}
+
+message CheckWinnerResponse {
+  int32 player = 1;
+}
+
+message CurrentBoardRequest {
+}
+
+message CurrentBoardResponse {
+  string board = 1;
+}
+
+service TicTacToeService {
+  rpc play(PlayRequest) returns (PlayResponse);
+  rpc checkWinner(CheckWinnerRequest) returns (CheckWinnerResponse);
+  rpc currentBoard(CurrentBoardRequest) returns (CurrentBoardResponse);
+}
