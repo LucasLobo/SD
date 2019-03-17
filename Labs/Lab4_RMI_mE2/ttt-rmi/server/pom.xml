@@ -18,11 +18,15 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <mainclass>ttt.Game</mainclass>
+        <mainclass>ttt.TTTServer</mainclass>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>example</groupId>
+            <artifactId>ttt-rmi-interface</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     
     <build>

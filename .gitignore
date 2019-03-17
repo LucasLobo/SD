@@ -13,3 +13,4 @@ buildNumber.properties
 bin/
 .settings
 .vscode
+.idea/
