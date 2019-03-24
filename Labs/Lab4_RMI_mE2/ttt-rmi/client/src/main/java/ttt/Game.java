@@ -19,10 +19,10 @@ class Game {
         do {
             System.out.printf(
                     "\nPlayer %d, please enter the number of the square "
-                            + "where you want to place your %c (or 0 to refresh the board): \n",
+                            + "where you want to place your %c (or 0 to refresh the board or 101 to check last plays): \n",
                     player, (player == 1) ? 'X' : 'O');
             play = keyboardSc.nextInt();
-        } while (play > 9 || play < 0);
+        } while ((play > 9 && play != 101) || play < 0);
         return play;
     }
 
@@ -35,7 +35,12 @@ class Game {
             do {
                 System.out.println(ttt.currentBoard());
                 play = readPlay();
-                if (play != 0) {
+                if (play == 101) {
+                	int[] lastPlays = ttt.ultimasJogadas();
+                	System.out.println("\nLast plays:\n\tplayer 0: " + lastPlays[0] + "\n\tplayer 1: " + lastPlays[1]);
+                	playAccepted = false;
+                }
+                else if (play != 0) {
                     playAccepted = ttt.play(--play / 3, play % 3, player);
                     if (!playAccepted)
                         System.out.println("Invalid play! Try again.");

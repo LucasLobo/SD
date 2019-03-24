@@ -18,12 +18,14 @@ public class TTT extends UnicastRemoteObject implements TTTService {
 	private int nextPlayer = 0;
 	/** Number of plays */
 	private int numPlays = 0;
+	
+	private int[] lastPlays = new int[2];
 
 	public TTT() throws RemoteException {}
 
 	/** Return a textual representation of the current game board. */
 	@Override
-	public String currentBoard() throws RemoteException{
+	public String currentBoard() throws RemoteException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\n\n ");
 
@@ -68,6 +70,9 @@ public class TTT extends UnicastRemoteObject implements TTTService {
 
 			/* insert player symbol */
 			board[row][column] = (player == 1) ? 'X' : 'O';
+			
+			lastPlays[player] = 1 + row * 3 + column;
+			
 			nextPlayer = (nextPlayer + 1) % 2;
 			numPlays++;
 			return true;
@@ -82,7 +87,7 @@ public class TTT extends UnicastRemoteObject implements TTTService {
 	 * return.
 	 */
 	@Override
-	public synchronized int checkWinner() throws RemoteException{
+	public synchronized int checkWinner() throws RemoteException {
 		int i;
 
 		/* Check for a winning line - diagonals first */
@@ -117,6 +122,12 @@ public class TTT extends UnicastRemoteObject implements TTTService {
 		else
 			/* Game is not over yet */
 			return -1;
+	}
+	
+	@Override
+	public synchronized int[] ultimasJogadas() throws RemoteException {
+		return lastPlays;
+		
 	}
 
 }
