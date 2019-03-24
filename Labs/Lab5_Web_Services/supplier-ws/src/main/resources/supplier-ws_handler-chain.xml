@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+	<!-- 
+		 A handler chain defines which handlers are called.
+	-->
+    <handler-chain>
+		<!-- 
+		    Print the SOAP message direction and contents. 
+		-->
+        <handler>
+            <handler-class>org.komparator.supplier.ws.handler.PrintSOAPHandler</handler-class>
+        </handler>
+    </handler-chain>
+</handler-chains>
