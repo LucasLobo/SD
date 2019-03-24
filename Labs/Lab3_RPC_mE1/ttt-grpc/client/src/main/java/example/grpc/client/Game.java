@@ -9,6 +9,8 @@ public class Game {
 	Scanner keyboardSc;
 	int winner = 0;
 	int player = 1;
+	char player_0_sym = 'O';
+	char player_1_sym = 'X';
 
 	public Game(TicTacToeServiceGrpc.TicTacToeServiceBlockingStub newStub) {
 		stub = newStub;
@@ -21,9 +23,9 @@ public class Game {
 			System.out.printf(
 					"\nPlayer %d, please enter the number of the square "
 							+ "where you want to place your %c (or 0 to refresh the board): \n",
-					player, (player == 1) ? 'X' : 'O');
+					player, (player == 1) ? player_1_sym : player_0_sym);
 			play = keyboardSc.nextInt();
-		} while (play > 9 || play < 0);
+		} while (play > 10 || play < 0);
 		return play;
 	}
 
@@ -36,7 +38,16 @@ public class Game {
 			do {
 				System.out.println(stub.currentBoard(TicTacToe.CurrentBoardRequest.getDefaultInstance()).getBoard());
 				play = readPlay();
-				if (play != 0) {
+				if(play == 10){
+					if(player == 0)
+						player_0_sym = 'o';
+					else
+						player_1_sym = 'x';
+					TicTacToe.OutroSimboloRequest request = TicTacToe.OutroSimboloRequest.newBuilder().setPlayer(player).build();
+					playAccepted = false;
+					stub.outroSimbolo(request);
+				}
+				else if (play != 0) {
                     TicTacToe.PlayRequest request = TicTacToe.PlayRequest.newBuilder().setRow(--play / 3).setColumn(play % 3).setPlayer(player).build();
 					playAccepted = stub.play(request).getAccepted();
 					if (!playAccepted)

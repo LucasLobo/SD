@@ -28,8 +28,17 @@ message CurrentBoardResponse {
   string board = 1;
 }
 
+message OutroSimboloRequest {
+  int32 player = 1;
+}
+
+
+message OutroSimboloResponse {
+}
+
 service TicTacToeService {
   rpc play(PlayRequest) returns (PlayResponse);
   rpc checkWinner(CheckWinnerRequest) returns (CheckWinnerResponse);
   rpc currentBoard(CurrentBoardRequest) returns (CurrentBoardResponse);
+  rpc outroSimbolo(OutroSimboloRequest) returns (OutroSimboloResponse);
 }

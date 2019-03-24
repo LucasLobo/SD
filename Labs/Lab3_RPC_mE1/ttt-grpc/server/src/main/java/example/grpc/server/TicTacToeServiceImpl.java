@@ -34,4 +34,13 @@ public class TicTacToeServiceImpl extends TicTacToeServiceGrpc.TicTacToeServiceI
 		responseObserver.onCompleted();
 	}
 
+	@Override
+	public void outroSimbolo(TicTacToe.OutroSimboloRequest request, StreamObserver<TicTacToe.OutroSimboloResponse> responseObserver) {
+		System.out.println(request);
+		ttt.outroSimbolo(request.getPlayer());
+		TicTacToe.OutroSimboloResponse response = TicTacToe.OutroSimboloResponse.newBuilder().build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
 }
