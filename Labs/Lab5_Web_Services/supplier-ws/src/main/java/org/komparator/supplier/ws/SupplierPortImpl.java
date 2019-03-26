@@ -20,6 +20,7 @@ import org.komparator.supplier.domain.Supplier;
 		targetNamespace = "http://ws.supplier.komparator.org/",
 		serviceName = "SupplierService"
 )
+@HandlerChain(file = "/supplier-ws_handler-chain.xml")
 public class SupplierPortImpl { // implements SupplierPortType {
 
 	// end point manager
@@ -52,11 +53,26 @@ public class SupplierPortImpl { // implements SupplierPortType {
 	}
 
 	public List<ProductView> searchProducts(String descText) throws BadText_Exception {
-		// TODO
+		// check product id
+		if (descText == null)
+			throwBadText("Product description text cannot be null!");
+		descText = descText.trim();
+		if (descText.length() == 0)
+			throwBadText("Product description text cannot be empty or whitespace!");
 		
-		
-		
-		
+		Supplier supplier = Supplier.getInstance();
+		ArrayList<Product> ps = supplier.getMatchingProducts(descText);
+		List<ProductView> pvs = new ArrayList<ProductView>();
+
+		if (ps != null) {
+			for(Product p : ps){
+				ProductView pv = newProductView(p);
+				pvs.add(pv);
+			}
+			
+			// product found!
+			return pvs;
+		}
 		return null;
 	}
 

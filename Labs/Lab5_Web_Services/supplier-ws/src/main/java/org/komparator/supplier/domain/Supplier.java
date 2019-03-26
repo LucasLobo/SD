@@ -110,6 +110,16 @@ public class Supplier {
 		// release lock
 	}
 
+	public ArrayList<Product> getMatchingProducts(String descText){
+		ArrayList<Product> matchingProducts = new ArrayList<Product>();  
+		for(Product product : products.values() ){
+			if (product.getDescription().contains(descText))
+				matchingProducts.add(product);
+		}
+
+		return matchingProducts;
+	}
+
 	// purchase --------------------------------------------------------------
 
 	public Purchase getPurchase(String purchaseId) {
@@ -136,5 +146,7 @@ public class Supplier {
 		}
 		return idsList;
 	}
+
+
 
 }
